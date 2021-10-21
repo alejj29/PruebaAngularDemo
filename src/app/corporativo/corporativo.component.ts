@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { usersListData } from './users-list.data';
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
+import { CorporativosService } from './_services/corporativos.service';
+import { Corporativo } from './_models/corporativo';
 
 @Component({
   selector: 'app-corporativo',
@@ -30,12 +32,18 @@ export class CorporativoComponent implements OnInit {
     { name: "Status", prop: "Status" },
     { name: "Actions", prop: "Actions" },
   ];
-  constructor() { }
+  constructor(private _corporativosServices: CorporativosService) { }
 
   ngOnInit() {
     this.token = localStorage.getItem('tokenscloud');
+    this.getListCorporativos();
   }
-
+  getListCorporativos() {
+    this._corporativosServices.getCorporativos()
+      .subscribe((corporativo:Corporativo[]) => {
+        console.log("list  corporativos", corporativo)
+      })
+  }
   /**
  * filterUpdate
  *
