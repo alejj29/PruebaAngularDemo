@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CorporativoComponent } from './corporativo.component';
+import { DetallesComponent } from './detalles/detalles.component';
 
 const routes: Routes = [
   {
@@ -8,6 +9,13 @@ const routes: Routes = [
     component: CorporativoComponent,
     data: {
       title: 'Corporativos'
+    }
+  },
+  {
+    path: 'detalle/:idDetalle',
+    component: DetallesComponent,
+    data: {
+      title: 'Detalles'
     }
   }
 ];
@@ -18,4 +26,4 @@ const routes: Routes = [
 })
 
 
-export class CorporativoRoutingModule{}
+export class CorporativoRoutingModule { }

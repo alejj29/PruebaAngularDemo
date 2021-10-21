@@ -124,9 +124,9 @@
               </ngx-datatable-column>
               <ngx-datatable-column name="ACCIONES" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  <a (click)="getByIdCorporativo(row.id)" ><i title="Ver Detalle" class="ft-eye "></i></a>
+                  <a [routerLink]="['/corporativos/detalle',row.id]" (click)="getByIdCorporativo(row.id)" ><i title="Ver Detalle" class="ft-eye "></i></a>
                   &nbsp;&nbsp;
-                  <a routerLink="/pages/users-edit"><i title="Desactivado"
+                  <a routerLink="/corporativos/detalle"><i title="Desactivado"
                       class="ft-edit text-primary cursor-pointer"></i></a>
                 </ng-template>
               </ngx-datatable-column>
