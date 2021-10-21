@@ -17,32 +17,43 @@ export class CorporativoComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   // row data
   public ColumnMode = ColumnMode;
-  public rows = usersListData;
+  public row = usersListData;
+
   public limitRef = 10;
   // private
   private tempData = [];
   // column header
-  public columns = [
-    { name: "CORPORATIVO", prop: "CORPORATIVO" },
-    { name: "Username", prop: "Username" },
-    { name: "Name", prop: "Name" },
-    { name: "Last Activity", prop: "Last Activity" },
-    { name: "Verified", prop: "Verified" },
-    { name: "Role", prop: "Role" },
-    { name: "Status", prop: "Status" },
-    { name: "Actions", prop: "Actions" },
-  ];
+  // public columns = [
+  //   { name: "S_NombreCorto", prop: "S_NombreCorto" },
+  //   { name: "Username", prop: "Username" },
+  //   { name: "D_FechaIncorporacion", prop: "D_FechaIncorporacion" },
+  //   { name: "Last Activity", prop: "Last Activity" },
+  //   { name: "Verified", prop: "Verified" },
+  //   // { name: "Role", prop: "Role" },
+  //   { name: "S_Activo", prop: "S_Activo" },
+  //   { name: "Actions", prop: "Actions" },
+  // ];
   constructor(private _corporativosServices: CorporativosService) { }
 
   ngOnInit() {
+    console.log("rows", this.row);
     this.token = localStorage.getItem('tokenscloud');
     this.getListCorporativos();
   }
+  registrosTotales;
+  listCorporativo: Corporativo[] = [];
+  rows = this.listCorporativo;
   getListCorporativos() {
     this._corporativosServices.getCorporativos()
-      .subscribe((corporativo:Corporativo[]) => {
-        console.log("list  corporativos", corporativo)
-      })
+      .subscribe((corporativo: Corporativo[]) => {
+        // console.log("list  corporativos", corporativo)
+        // this.listCorporativo = corporativo['data'];
+        console.log("corporativo['data'].length", corporativo['data'].length)
+        if (corporativo['data'].length) {
+          this.listCorporativo = corporativo['data'];
+        }
+        console.log(this.listCorporativo)
+      });
   }
   /**
  * filterUpdate

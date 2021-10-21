@@ -70,27 +70,39 @@
               </label>
             </fieldset>
             <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
-              [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
-              [columns]="columns">
-              <ngx-datatable-column name="CORPORATIVO" prop="CORPORATIVO" [width]="50"></ngx-datatable-column>
-              <ngx-datatable-column name="Username" prop="Username" [width]="150">
+              [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="listCorporativo" [scrollbarH]="true">
+              <ngx-datatable-column name="CORPORATIVO" [width]="50">
                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                   <div class="d-flex align-items-center">
-                    <img class="rounded-circle mr-1" src="assets/img/portrait/small/{{
-                        row.avatar
-                      }}" height="32" width="32" alt="datatable-avatar" />
-
+                    <img class="" src="{{row.S_LogoURL}}" height="32" width="32" alt="datatable-avatar" />
+                    <div class="cell-line-height">
+                      <a class="line-height-1 mb-0" routerLink="/pages/users-view">{{ row.S_NombreCorto }}</a><br>
+                      <a class="line-height-1 mb-0">{{ row.S_NombreCompleto }}</a>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="URL" prop="S_LogoURL" [width]="150">
+                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                  <div class="d-flex align-items-center">
                     <div class="cell-line-height">
                       <a class="line-height-1 mb-0" routerLink="/pages/users-view">{{ name }}</a>
                     </div>
                   </div>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Name" prop="Name" [width]="150"></ngx-datatable-column>
-              <ngx-datatable-column name="Last Activity" prop="Last Activity" [width]="120"></ngx-datatable-column>
-              <ngx-datatable-column name="Verified" prop="Verified" [width]="70"></ngx-datatable-column>
-              <ngx-datatable-column name="Role" prop="Role" [width]="70"></ngx-datatable-column>
-              <ngx-datatable-column name="Status" prop="Status" [width]="70">
+              <ngx-datatable-column name="INCORPORACÍON" [width]="150">
+                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                  <div class="d-flex align-items-center">
+                    <div class="cell-line-height">
+                      <a class="line-height-1 mb-0">{{row. D_FechaIncorporacion|date: 'dd-MMM-yyyy' }}</a>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="CREADO EL" prop="created_at" [width]="120"></ngx-datatable-column>
+              <ngx-datatable-column name="ASIGNADO A" prop="asignado.S_Nombre" [width]="70"></ngx-datatable-column>
+              <ngx-datatable-column name="STATUS" prop="S_Activo" [width]="70">
                 <ng-template let-status="value" ngx-datatable-cell-template>
                   <div class="badge" [ngClass]="{
                       'bg-light-success': status == 'Active',
@@ -101,7 +113,7 @@
                   </div>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Actions" [width]="50">
+              <ngx-datatable-column name="ACCIONES" [width]="50">
                 <ng-template ngx-datatable-cell-template>
                   <a routerLink="/pages/users-edit"><i class="ft-edit text-primary cursor-pointer"></i></a>
                 </ng-template>
