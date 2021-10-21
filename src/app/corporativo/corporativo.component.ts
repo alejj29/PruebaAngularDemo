@@ -36,7 +36,7 @@ export class CorporativoComponent implements OnInit {
   constructor(private _corporativosServices: CorporativosService) { }
 
   ngOnInit() {
-    console.log("rows", this.row);
+    // console.log("rows", this.row);
     this.token = localStorage.getItem('tokenscloud');
     this.getListCorporativos();
   }

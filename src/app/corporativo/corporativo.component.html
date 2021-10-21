@@ -82,11 +82,12 @@
                   </div>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="URL" prop="S_LogoURL" [width]="150">
+              <ngx-datatable-column name="URL" [width]="150">
                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                   <div class="d-flex align-items-center">
                     <div class="cell-line-height">
-                      <a class="line-height-1 mb-0" routerLink="/pages/users-view">{{ name }}</a>
+                      <a class="line-height-1 mb-0" routerLink="devschoolcloud.com/sa/#/{{row.S_SystemUrl}}">
+                        {{'devschoolcloud.com/sa/#/'+row.S_SystemUrl }}</a>
                     </div>
                   </div>
                 </ng-template>
@@ -95,26 +96,36 @@
                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                   <div class="d-flex align-items-center">
                     <div class="cell-line-height">
-                      <a class="line-height-1 mb-0">{{row. D_FechaIncorporacion|date: 'dd-MMM-yyyy' }}</a>
+                      <a class="line-height-1 mb-0">{{row.D_FechaIncorporacion|date: 'dd-MMM-yyyy' }}</a>
                     </div>
                   </div>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="CREADO EL" prop="created_at" [width]="120"></ngx-datatable-column>
+              <ngx-datatable-column name="CREADO EL" [width]="120">
+                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                  <div class="d-flex align-items-center">
+                    <div class="cell-line-height">
+                      <a class="line-height-1 mb-0">{{row.user_created.created_at|date: 'dd-MMM-yyyy' }}</a><br>
+                      <a class="line-height-1 mb-0">{{"por:"+row.user_created.S_Nombre }}</a>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
               <ngx-datatable-column name="ASIGNADO A" prop="asignado.S_Nombre" [width]="70"></ngx-datatable-column>
-              <ngx-datatable-column name="STATUS" prop="S_Activo" [width]="70">
-                <ng-template let-status="value" ngx-datatable-cell-template>
-                  <div class="badge" [ngClass]="{
-                      'bg-light-success': status == 'Active',
-                      'bg-light-danger': status == 'Banned',
-                      'bg-light-warning': status == 'Close'
-                    }">
-                    {{ status }}
+              <ngx-datatable-column name="STATUS" [width]="70">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div *ngIf="row.S_Activo==1" class="badge bg-light-success">
+                    {{ 'Activo' }}
+                  </div>
+                  <div *ngIf="row.S_Activo==0" class="badge">
+                    {{ 'Inactivo' }}
                   </div>
                 </ng-template>
               </ngx-datatable-column>
               <ngx-datatable-column name="ACCIONES" [width]="50">
                 <ng-template ngx-datatable-cell-template>
+                  <a routerLink="/pages/users-edit"><i class="ft-eye text-primary cursor-pointer"></i></a>
+                  &nbsp;&nbsp;
                   <a routerLink="/pages/users-edit"><i class="ft-edit text-primary cursor-pointer"></i></a>
                 </ng-template>
               </ngx-datatable-column>
