@@ -124,9 +124,10 @@
               </ngx-datatable-column>
               <ngx-datatable-column name="ACCIONES" [width]="50">
                 <ng-template ngx-datatable-cell-template>
-                  <a routerLink="/pages/users-edit"><i class="ft-eye text-primary cursor-pointer"></i></a>
+                  <a routerLink="/pages/users-edit"><i title="Ver Detalle" class="ft-eye "></i></a>
                   &nbsp;&nbsp;
-                  <a routerLink="/pages/users-edit"><i class="ft-edit text-primary cursor-pointer"></i></a>
+                  <a routerLink="/pages/users-edit"><i title="Desactivado"
+                      class="ft-edit text-primary cursor-pointer"></i></a>
                 </ng-template>
               </ngx-datatable-column>
             </ngx-datatable>
