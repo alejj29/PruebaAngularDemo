@@ -30,11 +30,13 @@ export class HorizontalMenuComponent implements OnInit, AfterViewInit, OnDestroy
 
   ngOnInit() {
     this.menuItems = HROUTES;
+    console.log("this.menuItems",this.menuItems)
   }
 
   ngAfterViewInit() {
 
     this.layoutSub = this.configService.templateConf$.subscribe((templateConf) => {
+      console.log("templateConf",templateConf)
       if (templateConf) {
         this.config = templateConf;
       }

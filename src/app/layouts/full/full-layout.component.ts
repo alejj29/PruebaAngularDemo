@@ -62,6 +62,7 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.layoutSub = layoutService.toggleSidebar$.subscribe(
       isShow => {
         this.hideSidebar = !isShow;
+        console.log("this.hideSidebar",this.hideSidebar)
         if(this.hideSidebar) {
           this.overlayContent = false;
         } else {
