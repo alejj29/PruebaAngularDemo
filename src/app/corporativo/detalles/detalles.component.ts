@@ -10,18 +10,20 @@ import { CorporativosService } from '../_services/corporativos.service';
 })
 export class DetallesComponent implements OnInit {
 
-  constructor(private _route:ActivatedRoute,private _corporativosServices: CorporativosService) { }
+  constructor(private _route: ActivatedRoute, private _corporativosServices: CorporativosService) { }
 
   ngOnInit() {
-    let id=+this._route.snapshot.paramMap.get('idDetalle');
-    console.log("id",id);
+    let id = +this._route.snapshot.paramMap.get('idDetalle');
+    console.log("id", id);
     this.getByIdCorporativo(id)
   }
-
-getByIdCorporativo(id:number) {
+  getByIdDetalleCorporativo:CorporativoDetalle;
+  getByIdCorporativo(id: number) {
     this._corporativosServices.getByIdCorporativo(id)
       .subscribe((corporativoDetalle: CorporativoDetalle) => {
-        console.log("corporativo detalles completo",corporativoDetalle['data'])
+        this.getByIdDetalleCorporativo=corporativoDetalle['data'];
+        console.log("getByIdDetalleCorporativo", this.getByIdDetalleCorporativo)
+
       });
   }
 }
