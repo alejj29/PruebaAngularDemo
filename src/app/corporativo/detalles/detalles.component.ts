@@ -77,25 +77,31 @@ export class DetallesComponent implements OnInit {
       })
   }
 
-  documentoSubiendo: boolean;
+  editContactButon: boolean;
   nomDisable: boolean;
-  contactoEdit:Contacto;
-  editContact(contacto: Contacto) {
+  contactoEdit: Contacto;
+  butoneditContact(contacto: Contacto) {
     console.log("row", contacto)
     this.contactoEdit = contacto
-    this.documentoSubiendo = true;
+    this.editContactButon = true;
 
   }
+  editContact() {
+    this.editContactButon = false;
+  }
   cambioButon: boolean;
+  mostrar;
   editar() {
     this.cambioButon = true;
     this.nomDisable = true;
+    this.mostrar = true
 
   }
   cancelar() {
     this.getByIdCorporativo();
     this.cambioButon = null;
     this.nomDisable = false;
+    this.mostrar = false;
 
   }
 

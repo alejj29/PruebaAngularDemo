@@ -24,71 +24,142 @@
                     </div>
                     <!-- Media object ends -->
                     <!-- Account form starts -->
-                    <form novalidate (ngSubmit)="editarDatosGeneral()">
-                      <div class="row">
-                        <div class="col-12 col-md-3">
-                          <div class="form-group">
-                            <div class="controls">
-                              <label for="users-edit-username">NOMBRE CORTO</label>
-                              <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                [disabled]="!nomDisable" name="nombreCorto" [(ngModel)]="NombreCorto"
-                                value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}">
-                            </div>
-                          </div>
 
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <div class="form-group">
-                            <div class="controls">
-                              <label for="users-edit-username">NOMBRE COMPLETO</label>
-                              <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                [disabled]="!nomDisable"
-                                value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCompleto}}">
+                    <form novalidate (ngSubmit)="editarDatosGeneral()">
+                      <div *ngIf="!mostrar">
+                        <div class="row">
+                          <div class="col-12 col-md-3">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label for="users-edit-username">NOMBRE CORTO</label>
+                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                  [disabled]="!nomDisable" name="nombreCorto"
+                                  value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label for="users-edit-username">NOMBRE COMPLETO</label>
+                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                  [disabled]="!nomDisable"
+                                  value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCompleto}}">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-3">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label for="users-edit-status">STATUS*</label>
+                                <select id="users-edit-status" class="form-control" [disabled]="!nomDisable">
+                                  <option value=""></option>
+                                  <option value="1">Inactivo</option>
+                                  <option value="2">Activo</option>
+                                </select>
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div class="col-12 col-md-3">
-                          <div class="form-group">
-                            <div class="controls">
-                              <label for="users-edit-status">Status</label>
-                              <select id="users-edit-status" class="form-control" [disabled]="!nomDisable">
-                                <option value=""></option>
-                                <option value="1">Inactivo</option>
-                                <option value="2">Activo</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-12 col-md-3">
-                          <div class="form-group">
-                            <div class="controls">
-                              <label for="users-edit-username">FECHA INCORPORACÍON</label>
-                              <div class="input-group">
-                                <input class="form-control" name="dp" [(ngModel)]="model" [disabled]="!nomDisable"
-                                  value="{{getByIdDetalleCorporativo?.corporativo.D_FechaIncorporacion| date: 'yyyy-MM-dd'}}"
-                                  ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled"
-                                  #d3="ngbDatepicker">
-                                <div class="input-group-append">
-                                  <div class="input-group-text" (click)="d3.toggle()">
-                                    <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                        <div class="row">
+                          <div class="col-12 col-md-3">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label for="users-edit-username">FECHA INCORPORACÍON*</label>
+                                <div class="input-group">
+                                  <input class="form-control" name="dp" [disabled]="!nomDisable"
+                                    value="{{getByIdDetalleCorporativo?.corporativo.D_FechaIncorporacion| date: 'yyyy-MM-dd'}}"
+                                    ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled"
+                                    #d3="ngbDatepicker">
+                                  <div class="input-group-append">
+                                    <div class="input-group-text" (click)="d3.toggle()">
+                                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-12 col-md-3">
-                          <div class="form-group">
-                            <div class="controls">
-                              <label for="users-edit-username">URL DEL SISTEMA *</label>
-                              <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                [disabled]="!nomDisable" value="{{getByIdDetalleCorporativo?.corporativo.S_SystemUrl}}">
+                          <div class="col-12 col-md-3">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label for="users-edit-username">URL DEL SISTEMA *</label>
+                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                  [disabled]="!nomDisable"
+                                  value="{{getByIdDetalleCorporativo?.corporativo.S_SystemUrl}}">
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <div *ngIf="mostrar">
+                        <div class="row">
+                          <div class="col-12 col-md-3">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label for="users-edit-username">NOMBRE CORTO</label>
+                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                  [disabled]="!nomDisable" name="nombreCorto" [(ngModel)]="nombre"
+                                  value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label for="users-edit-username">NOMBRE COMPLETO</label>
+                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                  [disabled]="!nomDisable"
+                                  value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCompleto}}">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-3">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label for="users-edit-status">Status</label>
+                                <select id="users-edit-status" class="form-control" [disabled]="!nomDisable">
+                                  <option value=""></option>
+                                  <option value="1">Inactivo</option>
+                                  <option value="2">Activo</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 col-md-3">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label for="users-edit-username">FECHA INCORPORACÍON</label>
+                                <div class="input-group">
+                                  <input class="form-control" name="dp" [disabled]="!nomDisable"
+                                    value="{{getByIdDetalleCorporativo?.corporativo.D_FechaIncorporacion| date: 'yyyy-MM-dd'}}"
+                                    ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled"
+                                    #d3="ngbDatepicker">
+                                  <div class="input-group-append">
+                                    <div class="input-group-text" (click)="d3.toggle()">
+                                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-md-3">
+                            <div class="form-group">
+                              <div class="controls">
+                                <label for="users-edit-username">URL DEL SISTEMA *</label>
+                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                  [disabled]="!nomDisable"
+                                  value="{{getByIdDetalleCorporativo?.corporativo.S_SystemUrl}}">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
                       <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
 
                         <button *ngIf="!cambioButon" type="reset" class="btn btn-secondary "
@@ -102,7 +173,8 @@
                           <span>Cancelar</span>
                         </button>
                         &nbsp; &nbsp;
-                        <button *ngIf="cambioButon" class="btn btn-primary" type="submit"  (click)="editarDatosGeneral()" >
+                        <button *ngIf="cambioButon" class="btn btn-primary" type="submit"
+                          (click)="sale()">
                           Guardar Cambios
                         </button>
                       </div>
@@ -147,11 +219,13 @@
                             <ngx-datatable-column name="EMAIL" prop="S_Email" [width]="100"></ngx-datatable-column>
                             <ngx-datatable-column name="OBSERVACIONES" prop="S_Comentarios" [width]="100">
                             </ngx-datatable-column>
-                            <ngx-datatable-column name="ACCIONES" [width]="100">
+                            <ngx-datatable-column name="ACCIONES" class="te" [width]="100">
                               <ng-template let-row="row" ngx-datatable-cell-template>
-                                <i class="ft-edit text-primary cursor-pointer" (click)="editContact(row)"></i>
-                                &nbsp;
-                                <a class="ft-trash-2 text-primary cursor-pointer" (click)="deleteContact(row.id)"></a>
+                                <div class="te">
+                                  <i class="ft-edit text-primary cursor-pointer " (click)="butoneditContact(row)"></i>
+                                  <!-- &nbsp; -->
+                                  <a class="ft-trash-2 text-primary cursor-pointer " (click)="deleteContact(row.id)"></a>
+                                </div>
                               </ng-template>
                             </ngx-datatable-column>
                           </ngx-datatable>
@@ -167,7 +241,8 @@
                             <div class="controls">
                               <label for="users-edit-username">NOMBRE</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="NOMBRE"
-                                name="nombre" [(ngModel)]="crearContacto.S_Nombre" aria-invalid="false" value="{{contactoEdit?.S_Nombre}}">
+                                name="nombre" [(ngModel)]="crearContacto.S_Nombre" aria-invalid="false"
+                                value="{{contactoEdit?.S_Nombre}}">
                             </div>
                           </div>
                         </div>
@@ -176,8 +251,8 @@
                             <div class="controls">
                               <label for="users-edit-username">PUESTO</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="PUESTO"
-                              value="{{contactoEdit?.S_Puesto}}"
-                                name="puesto" [(ngModel)]="crearContacto.S_Puesto" aria-invalid="false">
+                                value="{{contactoEdit?.S_Puesto}}" name="puesto" [(ngModel)]="crearContacto.S_Puesto"
+                                aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -186,8 +261,8 @@
                             <div class="controls">
                               <label for="users-edit-status">COMENTARIOS</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="COMENTARIOS"
-                              value="{{contactoEdit?.S_Comentarios}}"
-                                name="comentarios" [(ngModel)]="crearContacto.S_Comentarios" aria-invalid="false">
+                                value="{{contactoEdit?.S_Comentarios}}" name="comentarios"
+                                [(ngModel)]="crearContacto.S_Comentarios" aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -196,22 +271,20 @@
                         <div class="col-12 col-md-3">
                           <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-username">TELEFOONO FIJO</label>
+                              <label for="users-edit-username">TELEFONO FIJO</label>
                               <input type="text" id="users-edit-username" class="form-control" name="telFijo"
-                              value="{{contactoEdit?.N_TelefonoFijo}}"
-                                [(ngModel)]="crearContacto.N_TelefonoFijo" placeholder="TELEFOONO FIJO"
-                                aria-invalid="false">
+                                value="{{contactoEdit?.N_TelefonoFijo}}" [(ngModel)]="crearContacto.N_TelefonoFijo"
+                                placeholder="TELEFOONO FIJO" aria-invalid="false">
                             </div>
                           </div>
                         </div>
                         <div class="col-12 col-md-3">
                           <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-username">TELEFOONO MOVIL</label>
+                              <label for="users-edit-username">TELEFONO MOVIL</label>
                               <input type="text" id="users-edit-username" class="form-control" name="telMovil"
-                              value="{{contactoEdit?.N_TelefonoMovil}}"
-                                [(ngModel)]="crearContacto.N_TelefonoMovil" placeholder="TELEFOONO MOVIL"
-                                aria-invalid="false">
+                                value="{{contactoEdit?.N_TelefonoMovil}}" [(ngModel)]="crearContacto.N_TelefonoMovil"
+                                placeholder="TELEFOONO MOVIL" aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -220,8 +293,8 @@
                             <div class="controls">
                               <label for="users-edit-username">EMAIL</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="EMAIL"
-                              value="{{contactoEdit?.S_Email}}"
-                                name="email" [(ngModel)]="crearContacto.S_Email" aria-invalid="false">
+                                value="{{contactoEdit?.S_Email}}" name="email" [(ngModel)]="crearContacto.S_Email"
+                                aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -231,11 +304,11 @@
                               <label for="users-edit-username"></label>
                               <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
 
-                                <button *ngIf="!documentoSubiendo" type="submit" class="btn btn-secondary "
+                                <button *ngIf="!editContactButon" type="submit" class="btn btn-secondary "
                                   title="Adjuntar nuevo documento">
                                   <span>AGREGAR CONTACTO</span>
                                 </button>
-                                <button *ngIf="documentoSubiendo" class="btn btn-primary">
+                                <button *ngIf="editContactButon" class="btn btn-primary" (click)="editContact()" >
                                   ACTUALIZAR CONTACTO
                                 </button>
 
@@ -244,7 +317,6 @@
                           </div>
                         </div>
                       </div>
-
                     </form>
                     <!-- Information form ends -->
                   </div>

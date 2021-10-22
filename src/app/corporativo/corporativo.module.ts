@@ -14,7 +14,8 @@ import {FormsModule} from '@angular/forms'
     CorporativoRoutingModule,
     NgxDatatableModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+
   ],
   exports: [],
   declarations: [

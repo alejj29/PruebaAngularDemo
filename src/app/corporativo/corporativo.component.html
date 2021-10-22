@@ -71,6 +71,7 @@
             </fieldset>
             <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
               [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="listCorporativo" [scrollbarH]="true">
+
               <ngx-datatable-column name="CORPORATIVO" [width]="50">
                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                   <div class="d-flex align-items-center">
@@ -97,7 +98,7 @@
                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                   <div class="d-flex align-items-center">
                     <div class="cell-line-height">
-                      <a class="line-height-1 mb-0">{{row.D_FechaIncorporacion|date: 'dd-MMM-yyyy' }}</a>
+                      <a class="line-height-1 mb-0 ne">{{row.D_FechaIncorporacion|date: 'dd-MMM-yyyy' }}</a>
                     </div>
                   </div>
                 </ng-template>
@@ -106,13 +107,21 @@
                 <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
                   <div class="d-flex align-items-center">
                     <div class="cell-line-height">
-                      <a class="line-height-1 mb-0">{{row.user_created.created_at|date: 'dd-MMM-yyyy' }}</a><br>
-                      <a class="line-height-1 mb-0">{{"por:"+row.user_created.S_Nombre }}</a>
+                      <a class="line-height-1 mb-0 ne">{{row.user_created.created_at|date: 'dd-MMM-yyyy' }}</a><br>
+                      <a class="line-height-1 mb-0 gri">{{"por:"+row.user_created.S_Nombre }}</a>
                     </div>
                   </div>
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="ASIGNADO A" prop="asignado.S_Nombre" [width]="70"></ngx-datatable-column>
+              <ngx-datatable-column name="ASIGNADO A" prop="" [width]="70">
+                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                  <div class="d-flex align-items-center">
+                    <div class="cell-line-height">
+                      <a class="line-height-1 mb-0 ne">{{row.asignado.S_Nombre}}</a>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
               <ngx-datatable-column name="STATUS" [width]="70">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   <div *ngIf="row.S_Activo==1" class="badge bg-light-success">
@@ -129,7 +138,7 @@
                       title="Ver Detalle" class="ft-eye "></i></a>
                   &nbsp;&nbsp;
                   <a routerLink="/corporativos/detalle"><i title="Desactivado"
-                      class="ft-edit text-primary cursor-pointer"></i></a>
+                      class="ft-check-circle text-primary cursor-pointer"></i></a>
                 </ng-template>
               </ngx-datatable-column>
             </ngx-datatable>
