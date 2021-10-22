@@ -8,7 +8,7 @@
             <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs justify-content-left">
               <li [ngbNavItem]="1">
                 <a ngbNavLink class="nav-link d-flex align-items-center">
-                  <i class="ft-user mr-1"></i>
+                  <i class="ft-file mr-1"></i>
                   <span class="d-none d-sm-block">Datos Generales</span>
                 </a>
                 <ng-template ngbNavContent>
@@ -70,7 +70,7 @@
                             <div class="controls">
                               <label for="users-edit-username">FECHA INCORPORACÍON</label>
                               <div class="input-group">
-                                <input class="form-control"  name="dp" [(ngModel)]="model"
+                                <input class="form-control" name="dp" [(ngModel)]="model"
                                   value="{{getByIdDetalleCorporativo.corporativo.D_FechaIncorporacion| date: 'yyyy-MM-dd'}}"
                                   ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled"
                                   #d3="ngbDatepicker">
@@ -88,14 +88,14 @@
                             <div class="controls">
                               <label for="users-edit-username">URL DEL SISTEMA *</label>
                               <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                              value="{{getByIdDetalleCorporativo.corporativo.S_SystemUrl}}"
-                              >
+                                value="{{getByIdDetalleCorporativo.corporativo.S_SystemUrl}}">
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
-                        <button type="reset" class="btn btn-secondary " [routerLink]="['/corporativos']">Regresar</button>
+                        <button type="reset" class="btn btn-secondary "
+                          [routerLink]="['/corporativos']">Regresar</button>
                         &nbsp; &nbsp;
                         <button type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2">Editar</button>
 
@@ -108,7 +108,7 @@
               </li>
               <li [ngbNavItem]="2">
                 <a ngbNavLink class="nav-link d-flex align-items-center">
-                  <i class="ft-info mr-1"></i>
+                  <i class="ft-user mr-1"></i>
                   <span class="d-none d-sm-block">Contactos</span>
                 </a>
                 <ng-template ngbNavContent>
@@ -117,11 +117,54 @@
 
                     <!-- Media object starts -->
                     <div class="media">
-                      <img src="assets/img/portrait/small/avatar-s-2.png" alt="user edit avatar"
+                      <img src="{{getByIdDetalleCorporativo.corporativo.S_LogoURL}}" alt="user edit avatar"
                         class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
                       <div class="media-body">
-                        <h4>Avatar</h4>
+                        <h4>{{getByIdDetalleCorporativo.corporativo.S_NombreCorto}}</h4>
+                      </div>
+                    </div>
 
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="card">
+                          <!-- ngx-datatable Basic -->
+                          <ngx-datatable [rows]="getListContactos" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="10"
+                            [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
+
+                            <ngx-datatable-column name="NOMBRE" prop="S_Nombre" [width]="150"></ngx-datatable-column>
+                            <ngx-datatable-column name="PUESTO" prop="S_Puesto" [width]="50"></ngx-datatable-column>
+                            <ngx-datatable-column name="TELEFONO" prop="N_TelefonoFijo" [width]="100"></ngx-datatable-column>
+                            <ngx-datatable-column name="CELULAR" prop="N_TelefonoMovil" [width]="100"></ngx-datatable-column>
+                            <ngx-datatable-column name="EMAIL" prop="S_Email" [width]="100"></ngx-datatable-column>
+                            <ngx-datatable-column name="OBSERVACIONES" prop="S_Comentarios" [width]="100">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="ACCIONES" [width]="100">
+                              <ng-template ngx-datatable-cell-template>
+                                <i class="ft-edit text-primary cursor-pointer"></i>
+                                &nbsp;
+                                <i class="ft-trash-2 text-primary cursor-pointer"></i>
+                              </ng-template>
+                            </ngx-datatable-column>
+                            <!-- <ngx-datatable-column name="Status" prop="status" [width]="100">
+                                  <ng-template let-status="value" ngx-datatable-cell-template>
+                                    <div class="badge badge-pill"
+                                      [ngClass]="{'bg-light-primary': status == '1', 'bg-light-success':status == '2', 'bg-light-danger':status == '3' , 'bg-light-warning':status == '4' , 'bg-light-info':status == '5'}">
+                                      {{ status == 1 ? "Current" : (status == 2 ? "Professional" : (status == 3 ?
+                                      "Rejected" : (status == 4 ? "Resigned" : status == 5 ? "Applied" : "Applied")))
+                                      }}
+                                    </div>
+                                  </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="Actions" [width]="70">
+                                  <ng-template ngx-datatable-cell-template>
+                                    <i class="ft-more-vertical text-primary cursor-pointer mr-2"></i>
+                                    <i class="ft-edit text-primary cursor-pointer"></i>
+                                  </ng-template>
+                                </ngx-datatable-column> -->
+
+                          </ngx-datatable>
+                          <!--/ ngx-datatable Basic -->
+                        </div>
                       </div>
                     </div>
                     <!-- Media object ends -->
@@ -186,6 +229,7 @@
                         <div class="col-12 col-md-3">
                           <div class="form-group">
                             <div class="controls">
+                              <label for="users-edit-username"></label>
                               <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
                                 <button type="reset" class="btn btn-secondary ">AGREGAR CONTACTO</button>
                               </div>
