@@ -16,10 +16,10 @@
                   <div class="mt-2" id="account">
                     <!-- Media object starts -->
                     <div class="media">
-                      <img src="{{getByIdDetalleCorporativo.corporativo.S_LogoURL}}" alt="user edit avatar"
+                      <img src="{{getByIdDetalleCorporativo?.corporativo.S_LogoURL}}" alt="user edit avatar"
                         class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
                       <div class="media-body">
-                        <h4>{{getByIdDetalleCorporativo.corporativo.S_NombreCorto}}</h4>
+                        <h4>{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}</h4>
 
                       </div>
                     </div>
@@ -33,7 +33,7 @@
                             <div class="controls">
                               <label for="users-edit-username">NOMBRE CORTO</label>
                               <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                value="{{getByIdDetalleCorporativo.corporativo.S_NombreCorto}}">
+                                value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}">
                             </div>
                           </div>
 
@@ -43,7 +43,7 @@
                             <div class="controls">
                               <label for="users-edit-username">NOMBRE COMPLETO</label>
                               <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                value="{{getByIdDetalleCorporativo.corporativo.S_NombreCompleto}}">
+                                value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCompleto}}">
                             </div>
                           </div>
                         </div>
@@ -71,7 +71,7 @@
                               <label for="users-edit-username">FECHA INCORPORACÍON</label>
                               <div class="input-group">
                                 <input class="form-control" name="dp" [(ngModel)]="model"
-                                  value="{{getByIdDetalleCorporativo.corporativo.D_FechaIncorporacion| date: 'yyyy-MM-dd'}}"
+                                  value="{{getByIdDetalleCorporativo?.corporativo.D_FechaIncorporacion| date: 'yyyy-MM-dd'}}"
                                   ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled"
                                   #d3="ngbDatepicker">
                                 <div class="input-group-append">
@@ -88,7 +88,7 @@
                             <div class="controls">
                               <label for="users-edit-username">URL DEL SISTEMA *</label>
                               <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                value="{{getByIdDetalleCorporativo.corporativo.S_SystemUrl}}">
+                                value="{{getByIdDetalleCorporativo?.corporativo.S_SystemUrl}}">
                             </div>
                           </div>
                         </div>
@@ -117,10 +117,10 @@
 
                     <!-- Media object starts -->
                     <div class="media">
-                      <img src="{{getByIdDetalleCorporativo.corporativo.S_LogoURL}}" alt="user edit avatar"
+                      <img src="{{getByIdDetalleCorporativo?.corporativo.S_LogoURL}}" alt="user edit avatar"
                         class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
                       <div class="media-body">
-                        <h4>{{getByIdDetalleCorporativo.corporativo.S_NombreCorto}}</h4>
+                        <h4>{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}</h4>
                       </div>
                     </div>
 
@@ -128,21 +128,24 @@
                       <div class="col-12">
                         <div class="card">
                           <!-- ngx-datatable Basic -->
-                          <ngx-datatable [rows]="getListContactos" [rowHeight]="50" class="bootstrap core-bootstrap" [limit]="10"
-                            [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
+                          <ngx-datatable [rows]="getListContactos" [rowHeight]="50" class="bootstrap core-bootstrap"
+                            [limit]="10" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50"
+                            [scrollbarH]="true">
 
                             <ngx-datatable-column name="NOMBRE" prop="S_Nombre" [width]="150"></ngx-datatable-column>
                             <ngx-datatable-column name="PUESTO" prop="S_Puesto" [width]="50"></ngx-datatable-column>
-                            <ngx-datatable-column name="TELEFONO" prop="N_TelefonoFijo" [width]="100"></ngx-datatable-column>
-                            <ngx-datatable-column name="CELULAR" prop="N_TelefonoMovil" [width]="100"></ngx-datatable-column>
+                            <ngx-datatable-column name="TELEFONO" prop="N_TelefonoFijo" [width]="100">
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="CELULAR" prop="N_TelefonoMovil" [width]="100">
+                            </ngx-datatable-column>
                             <ngx-datatable-column name="EMAIL" prop="S_Email" [width]="100"></ngx-datatable-column>
                             <ngx-datatable-column name="OBSERVACIONES" prop="S_Comentarios" [width]="100">
                             </ngx-datatable-column>
                             <ngx-datatable-column name="ACCIONES" [width]="100">
-                              <ng-template ngx-datatable-cell-template>
+                              <ng-template let-row="row" ngx-datatable-cell-template>
                                 <i class="ft-edit text-primary cursor-pointer"></i>
                                 &nbsp;
-                                <i class="ft-trash-2 text-primary cursor-pointer"></i>
+                                <a class="ft-trash-2 text-primary cursor-pointer" (click)=deleteContact(row.id)></a>
                               </ng-template>
                             </ngx-datatable-column>
                             <!-- <ngx-datatable-column name="Status" prop="status" [width]="100">
@@ -168,14 +171,14 @@
                       </div>
                     </div>
                     <!-- Media object ends -->
-                    <form novalidate>
+                    <form novalidate (ngSubmit)="agregarContacto()"   >
                       <div class="row">
                         <div class="col-12 col-md-3">
                           <div class="form-group">
                             <div class="controls">
                               <label for="users-edit-username">NOMBRE</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="NOMBRE"
-                                aria-invalid="false">
+                              name="nombre" [(ngModel)]="crearContacto.S_Nombre" aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -184,6 +187,7 @@
                             <div class="controls">
                               <label for="users-edit-username">PUESTO</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="PUESTO"
+                              name="puesto" [(ngModel)]="crearContacto.S_Puesto"
                                 aria-invalid="false">
                             </div>
                           </div>
@@ -193,6 +197,7 @@
                             <div class="controls">
                               <label for="users-edit-status">COMENTARIOS</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="COMENTARIOS"
+                              name="comentarios" [(ngModel)]="crearContacto.S_Comentarios"
                                 aria-invalid="false">
                             </div>
                           </div>
@@ -204,6 +209,7 @@
                             <div class="controls">
                               <label for="users-edit-username">TELEFOONO FIJO</label>
                               <input type="text" id="users-edit-username" class="form-control"
+                              name="telFijo" [(ngModel)]="crearContacto.N_TelefonoFijo"
                                 placeholder="TELEFOONO FIJO" aria-invalid="false">
                             </div>
                           </div>
@@ -213,6 +219,7 @@
                             <div class="controls">
                               <label for="users-edit-username">TELEFOONO MOVIL</label>
                               <input type="text" id="users-edit-username" class="form-control"
+                              name="telMovil" [(ngModel)]="crearContacto.N_TelefonoMovil"
                                 placeholder="TELEFOONO MOVIL" aria-invalid="false">
                             </div>
                           </div>
@@ -222,6 +229,7 @@
                             <div class="controls">
                               <label for="users-edit-username">EMAIL</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="EMAIL"
+                              name="email" [(ngModel)]="crearContacto.S_Email"
                                 aria-invalid="false">
                             </div>
                           </div>
@@ -231,7 +239,8 @@
                             <div class="controls">
                               <label for="users-edit-username"></label>
                               <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
-                                <button type="reset" class="btn btn-secondary ">AGREGAR CONTACTO</button>
+                                <button type="submit" class="btn btn-secondary " >AGREGAR
+                                  CONTACTO</button>
                               </div>
                             </div>
                           </div>
