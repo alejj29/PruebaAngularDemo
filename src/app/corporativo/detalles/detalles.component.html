@@ -20,19 +20,18 @@
                         class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
                       <div class="media-body">
                         <h4>{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}</h4>
-
                       </div>
                     </div>
                     <!-- Media object ends -->
-
                     <!-- Account form starts -->
-                    <form novalidate>
+                    <form novalidate (ngSubmit)="editarDatosGeneral()">
                       <div class="row">
                         <div class="col-12 col-md-3">
                           <div class="form-group">
                             <div class="controls">
                               <label for="users-edit-username">NOMBRE CORTO</label>
                               <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                [disabled]="!nomDisable" name="nombreCorto" [(ngModel)]="NombreCorto"
                                 value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}">
                             </div>
                           </div>
@@ -43,6 +42,7 @@
                             <div class="controls">
                               <label for="users-edit-username">NOMBRE COMPLETO</label>
                               <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                [disabled]="!nomDisable"
                                 value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCompleto}}">
                             </div>
                           </div>
@@ -51,7 +51,7 @@
                           <div class="form-group">
                             <div class="controls">
                               <label for="users-edit-status">Status</label>
-                              <select id="users-edit-status" class="form-control">
+                              <select id="users-edit-status" class="form-control" [disabled]="!nomDisable">
                                 <option value=""></option>
                                 <option value="1">Inactivo</option>
                                 <option value="2">Activo</option>
@@ -63,14 +63,10 @@
                       <div class="row">
                         <div class="col-12 col-md-3">
                           <div class="form-group">
-                            <!-- <div class="controls">
-                              <label for="users-edit-username">FECHA INCORPORACÍON</label>
-                              <input type="text" id="users-edit-username" class="form-control" aria-invalid="false">
-                            </div> -->
                             <div class="controls">
                               <label for="users-edit-username">FECHA INCORPORACÍON</label>
                               <div class="input-group">
-                                <input class="form-control" name="dp" [(ngModel)]="model"
+                                <input class="form-control" name="dp" [(ngModel)]="model" [disabled]="!nomDisable"
                                   value="{{getByIdDetalleCorporativo?.corporativo.D_FechaIncorporacion| date: 'yyyy-MM-dd'}}"
                                   ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled"
                                   #d3="ngbDatepicker">
@@ -88,17 +84,27 @@
                             <div class="controls">
                               <label for="users-edit-username">URL DEL SISTEMA *</label>
                               <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                value="{{getByIdDetalleCorporativo?.corporativo.S_SystemUrl}}">
+                                [disabled]="!nomDisable" value="{{getByIdDetalleCorporativo?.corporativo.S_SystemUrl}}">
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
-                        <button type="reset" class="btn btn-secondary "
+
+                        <button *ngIf="!cambioButon" type="reset" class="btn btn-secondary "
                           [routerLink]="['/corporativos']">Regresar</button>
                         &nbsp; &nbsp;
-                        <button type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2">Editar</button>
+                        <button *ngIf="!cambioButon" type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2"
+                          (click)="editar()">Editar</button>
 
+                        <button *ngIf="cambioButon" type="submit" class="btn btn-secondary " (click)="cancelar()"
+                          title="Adjuntar nuevo documento">
+                          <span>Cancelar</span>
+                        </button>
+                        &nbsp; &nbsp;
+                        <button *ngIf="cambioButon" class="btn btn-primary" type="submit"  (click)="editarDatosGeneral()" >
+                          Guardar Cambios
+                        </button>
                       </div>
                     </form>
                     <!-- Account form ends -->
@@ -143,42 +149,25 @@
                             </ngx-datatable-column>
                             <ngx-datatable-column name="ACCIONES" [width]="100">
                               <ng-template let-row="row" ngx-datatable-cell-template>
-                                <i class="ft-edit text-primary cursor-pointer"></i>
+                                <i class="ft-edit text-primary cursor-pointer" (click)="editContact(row)"></i>
                                 &nbsp;
-                                <a class="ft-trash-2 text-primary cursor-pointer" (click)=deleteContact(row.id)></a>
+                                <a class="ft-trash-2 text-primary cursor-pointer" (click)="deleteContact(row.id)"></a>
                               </ng-template>
                             </ngx-datatable-column>
-                            <!-- <ngx-datatable-column name="Status" prop="status" [width]="100">
-                                  <ng-template let-status="value" ngx-datatable-cell-template>
-                                    <div class="badge badge-pill"
-                                      [ngClass]="{'bg-light-primary': status == '1', 'bg-light-success':status == '2', 'bg-light-danger':status == '3' , 'bg-light-warning':status == '4' , 'bg-light-info':status == '5'}">
-                                      {{ status == 1 ? "Current" : (status == 2 ? "Professional" : (status == 3 ?
-                                      "Rejected" : (status == 4 ? "Resigned" : status == 5 ? "Applied" : "Applied")))
-                                      }}
-                                    </div>
-                                  </ng-template>
-                                </ngx-datatable-column>
-                                <ngx-datatable-column name="Actions" [width]="70">
-                                  <ng-template ngx-datatable-cell-template>
-                                    <i class="ft-more-vertical text-primary cursor-pointer mr-2"></i>
-                                    <i class="ft-edit text-primary cursor-pointer"></i>
-                                  </ng-template>
-                                </ngx-datatable-column> -->
-
                           </ngx-datatable>
                           <!--/ ngx-datatable Basic -->
                         </div>
                       </div>
                     </div>
                     <!-- Media object ends -->
-                    <form novalidate (ngSubmit)="agregarContacto()"   >
+                    <form novalidate (ngSubmit)="agregarContacto()">
                       <div class="row">
                         <div class="col-12 col-md-3">
                           <div class="form-group">
                             <div class="controls">
                               <label for="users-edit-username">NOMBRE</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="NOMBRE"
-                              name="nombre" [(ngModel)]="crearContacto.S_Nombre" aria-invalid="false">
+                                name="nombre" [(ngModel)]="crearContacto.S_Nombre" aria-invalid="false" value="{{contactoEdit?.S_Nombre}}">
                             </div>
                           </div>
                         </div>
@@ -187,8 +176,8 @@
                             <div class="controls">
                               <label for="users-edit-username">PUESTO</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="PUESTO"
-                              name="puesto" [(ngModel)]="crearContacto.S_Puesto"
-                                aria-invalid="false">
+                              value="{{contactoEdit?.S_Puesto}}"
+                                name="puesto" [(ngModel)]="crearContacto.S_Puesto" aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -197,8 +186,8 @@
                             <div class="controls">
                               <label for="users-edit-status">COMENTARIOS</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="COMENTARIOS"
-                              name="comentarios" [(ngModel)]="crearContacto.S_Comentarios"
-                                aria-invalid="false">
+                              value="{{contactoEdit?.S_Comentarios}}"
+                                name="comentarios" [(ngModel)]="crearContacto.S_Comentarios" aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -208,9 +197,10 @@
                           <div class="form-group">
                             <div class="controls">
                               <label for="users-edit-username">TELEFOONO FIJO</label>
-                              <input type="text" id="users-edit-username" class="form-control"
-                              name="telFijo" [(ngModel)]="crearContacto.N_TelefonoFijo"
-                                placeholder="TELEFOONO FIJO" aria-invalid="false">
+                              <input type="text" id="users-edit-username" class="form-control" name="telFijo"
+                              value="{{contactoEdit?.N_TelefonoFijo}}"
+                                [(ngModel)]="crearContacto.N_TelefonoFijo" placeholder="TELEFOONO FIJO"
+                                aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -218,9 +208,10 @@
                           <div class="form-group">
                             <div class="controls">
                               <label for="users-edit-username">TELEFOONO MOVIL</label>
-                              <input type="text" id="users-edit-username" class="form-control"
-                              name="telMovil" [(ngModel)]="crearContacto.N_TelefonoMovil"
-                                placeholder="TELEFOONO MOVIL" aria-invalid="false">
+                              <input type="text" id="users-edit-username" class="form-control" name="telMovil"
+                              value="{{contactoEdit?.N_TelefonoMovil}}"
+                                [(ngModel)]="crearContacto.N_TelefonoMovil" placeholder="TELEFOONO MOVIL"
+                                aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -229,8 +220,8 @@
                             <div class="controls">
                               <label for="users-edit-username">EMAIL</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="EMAIL"
-                              name="email" [(ngModel)]="crearContacto.S_Email"
-                                aria-invalid="false">
+                              value="{{contactoEdit?.S_Email}}"
+                                name="email" [(ngModel)]="crearContacto.S_Email" aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -239,8 +230,15 @@
                             <div class="controls">
                               <label for="users-edit-username"></label>
                               <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
-                                <button type="submit" class="btn btn-secondary " >AGREGAR
-                                  CONTACTO</button>
+
+                                <button *ngIf="!documentoSubiendo" type="submit" class="btn btn-secondary "
+                                  title="Adjuntar nuevo documento">
+                                  <span>AGREGAR CONTACTO</span>
+                                </button>
+                                <button *ngIf="documentoSubiendo" class="btn btn-primary">
+                                  ACTUALIZAR CONTACTO
+                                </button>
+
                               </div>
                             </div>
                           </div>

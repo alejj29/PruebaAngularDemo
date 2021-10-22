@@ -80,3 +80,13 @@ export interface CorporativoDetalle {
   tw_contratos_corporativo: TwContratosCorporativo[];
   tw_documentos_corporativo: TwDocumentosCorporativo[];
 }
+
+export interface CorporativoEdit {
+  id?: number;
+  S_NombreCorto?: string;
+  S_NombreCompleto?: string;
+  S_LogoURL?: string;
+  S_Activo?: number;
+  FK_Asignado_id?: number;
+  D_FechaIncorporacion?: string;
+}

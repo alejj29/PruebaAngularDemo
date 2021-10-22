@@ -4,7 +4,7 @@
     <div class="col-12">
       <!-- Filter starts -->
       <div class="users-list-filter px-2">
-        <form>
+        <form >
           <div class="row border rounded py-2 mb-2 mx-n2">
             <div class="col-12 col-sm-6 col-lg-3">
               <label for="users-list-status">Status</label>
@@ -76,7 +76,8 @@
                   <div class="d-flex align-items-center">
                     <img class="" src="{{row.S_LogoURL}}" height="32" width="32" alt="datatable-avatar" />
                     <div class="cell-line-height">
-                      <a class="line-height-1 mb-0" routerLink="/pages/users-view">{{ row.S_NombreCorto }}</a><br>
+                      <a class="line-height-1 mb-0"
+                        [routerLink]="['/corporativos/detalle',row.id]">{{row.S_NombreCorto}}</a><br>
                       <a class="line-height-1 mb-0">{{ row.S_NombreCompleto }}</a>
                     </div>
                   </div>
@@ -124,7 +125,8 @@
               </ngx-datatable-column>
               <ngx-datatable-column name="ACCIONES" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  <a [routerLink]="['/corporativos/detalle',row.id]" (click)="getByIdCorporativo(row.id)" ><i title="Ver Detalle" class="ft-eye "></i></a>
+                  <a [routerLink]="['/corporativos/detalle',row.id]" (click)="getByIdCorporativo(row.id)"><i
+                      title="Ver Detalle" class="ft-eye "></i></a>
                   &nbsp;&nbsp;
                   <a routerLink="/corporativos/detalle"><i title="Desactivado"
                       class="ft-edit text-primary cursor-pointer"></i></a>

@@ -3,7 +3,7 @@ import { Form } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { Contacto } from '../_models/contacto';
-import { CorporativoDetalle, TwContactosCorporativo } from '../_models/corporativoDetalle';
+import { CorporativoDetalle, CorporativoEdit, TwContactosCorporativo } from '../_models/corporativoDetalle';
 import { ContactoService } from '../_services/contacto.service';
 import { CorporativosService } from '../_services/corporativos.service';
 import { DatatableData } from './datatables.data';
@@ -77,6 +77,41 @@ export class DetallesComponent implements OnInit {
       })
   }
 
+  documentoSubiendo: boolean;
+  nomDisable: boolean;
+  contactoEdit:Contacto;
+  editContact(contacto: Contacto) {
+    console.log("row", contacto)
+    this.contactoEdit = contacto
+    this.documentoSubiendo = true;
+
+  }
+  cambioButon: boolean;
+  editar() {
+    this.cambioButon = true;
+    this.nomDisable = true;
+
+  }
+  cancelar() {
+    this.getByIdCorporativo();
+    this.cambioButon = null;
+    this.nomDisable = false;
+
+  }
+
+  corporativoEdit: CorporativoEdit = {
+    id: null,
+    S_NombreCorto: null,
+    S_NombreCompleto: null,
+    S_LogoURL: null,
+    S_Activo: null,
+    FK_Asignado_id: null,
+    D_FechaIncorporacion: null,
+  };
+  editarDatosGeneral() {
+
+    console.log("corporativoEdit", this.corporativoEdit)
+  }
   public ColumnMode = ColumnMode;
 
 
