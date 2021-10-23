@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { Corporativo } from '../_models/corporativo';
-import { CorporativoDetalle } from '../_models/corporativoDetalle';
+import { CorporativoDetalle, CorporativoEdit } from '../_models/corporativoDetalle';
 
 @Injectable({
   providedIn: 'root'
@@ -38,14 +38,14 @@ export class CorporativosService {
     }
     return this.http.get<CorporativoDetalle>(this.apiCorporativosURL + '/corporativos/' + id, headers);
   }
-  updateCorporativo(idCorporativo: number): Observable<any> {
+  updateCorporativo(idCorporativo: number, corporativo: CorporativoEdit): Observable<CorporativoEdit> {
     const headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.auth_toke}`
       })
     }
-    return this.http.put<any>(this.apiCorporativosURL + '/corporativos/' + idCorporativo, headers);
+    return this.http.put<CorporativoEdit>(this.apiCorporativosURL + '/corporativos/' + idCorporativo, corporativo, headers);
   }
 
 }

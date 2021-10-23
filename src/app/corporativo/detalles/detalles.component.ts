@@ -35,7 +35,8 @@ export class DetallesComponent implements OnInit {
       S_NombreCompleto: [''],
       S_SystemUrl: [''],
       D_FechaIncorporacion: [''],
-      S_Activo: ['']
+      S_Activo: [''],
+      FK_Asignado_id: [''],
     });
   }
   id;
@@ -52,6 +53,7 @@ export class DetallesComponent implements OnInit {
       S_SystemUrl: this.getByIdDetalleCorporativo.S_SystemUrl,
       D_FechaIncorporacion: this.getByIdDetalleCorporativo.D_FechaIncorporacion,
       S_Activo: this.getByIdDetalleCorporativo.S_Activo,
+      FK_Asignado_id: this.FK_Asignado_id
     })
   }
 
@@ -60,6 +62,7 @@ export class DetallesComponent implements OnInit {
   tw_corporativo_id: number;
   getByIdDetalleCorporativo: CorporativoDetalle;
   getListContactos: TwContactosCorporativo[] = [];
+  FK_Asignado_id: number;
   getByIdCorporativo() {
     this._corporativosServices.getByIdCorporativo(this.id)
       .subscribe((corporativoDetalle: CorporativoDetalle) => {
@@ -68,6 +71,7 @@ export class DetallesComponent implements OnInit {
         console.log("getByIdDetalleCorporativo", this.getByIdDetalleCorporativo)
         this.getListContactos = corporativoDetalle['data'].corporativo.tw_contactos_corporativo
         console.log("getListContactos", this.getListContactos)
+        this.FK_Asignado_id = corporativoDetalle['data'].corporativo.FK_Asignado_id
         this.capturaraDatos();
       });
   }
@@ -129,7 +133,7 @@ export class DetallesComponent implements OnInit {
   editContact() {
     console.log("idContacto editContact", this.idContacto)
     console.log("formReactiveContacto", this.formReactiveContacto.value)
-    this._contactoService.updateContact(this.idContacto,this.formReactiveContacto.value)
+    this._contactoService.updateContact(this.idContacto, this.formReactiveContacto.value)
       .subscribe(contacto => {
         console.log("contacto", contacto)
         this.getByIdCorporativo();
@@ -149,17 +153,18 @@ export class DetallesComponent implements OnInit {
     this.cambioButon = null;
     this.nomDisable = false;
     this.mostrar = false;
-
   }
 
   editarDatosGeneral() {
-
+    console.log("FK_Asignado_id", this.FK_Asignado_id)
     console.log("corporativoEdit", this.formReactive.value)
-    this.cambioButon = false;
-    // this._corporativosServices.updateCorporativo(93)
-    // .subscribe(corpor => {
+    console.log("corporativo", this.id)
+    this._corporativosServices.updateCorporativo(this.id, this.formReactive.value)
+      .subscribe(corpor => {
+        console.log("corporativo editar", corpor)
 
-    // })
+      })
+    this.cambioButon = false;
   }
   public ColumnMode = ColumnMode;
 

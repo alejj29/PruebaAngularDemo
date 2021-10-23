@@ -90,3 +90,4 @@ export interface CorporativoEdit {
   FK_Asignado_id?: number;
   D_FechaIncorporacion?: string;
 }
+
