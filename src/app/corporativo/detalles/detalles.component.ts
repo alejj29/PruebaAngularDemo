@@ -1,5 +1,6 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { Form } from '@angular/forms';
+import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { Contacto } from '../_models/contacto';
@@ -15,9 +16,21 @@ import { DatatableData } from './datatables.data';
 })
 export class DetallesComponent implements OnInit {
 
+  formReactive: FormGroup;
+  formReactiveContacto: FormGroup;
   constructor(private _route: ActivatedRoute, private _corporativosServices: CorporativosService,
-    private _contactoService: ContactoService
-  ) { }
+    private _contactoService: ContactoService, private _formBuilder: FormBuilder
+  ) {
+    this.formReactive = this._formBuilder.group({
+      S_NombreCorto: [''],
+      S_NombreCompleto: [''],
+      S_SystemUrl: [''],
+      D_FechaIncorporacion: [''],
+      S_Activo: [''],
+    });
+
+  }
+
   id;
   ngOnInit() {
     let id = +this._route.snapshot.paramMap.get('idDetalle');
@@ -25,17 +38,29 @@ export class DetallesComponent implements OnInit {
     console.log("id", this.id);
     this.getByIdCorporativo()
   }
+  capturaraDatos(){
+    this.formReactive.patchValue({
+      S_NombreCorto: this.getByIdDetalleCorporativo.S_NombreCorto,
+      S_NombreCompleto: this.getByIdDetalleCorporativo.S_NombreCompleto,
+      S_SystemUrl: this.getByIdDetalleCorporativo.S_SystemUrl,
+      D_FechaIncorporacion: this.getByIdDetalleCorporativo.D_FechaIncorporacion,
+      S_Activo: this.getByIdDetalleCorporativo.S_Activo,
+    })
+  }
+
+
   tw_corporativo_id: number;
   getByIdDetalleCorporativo: CorporativoDetalle;
   getListContactos: TwContactosCorporativo[] = [];
   getByIdCorporativo() {
     this._corporativosServices.getByIdCorporativo(this.id)
       .subscribe((corporativoDetalle: CorporativoDetalle) => {
-        this.getByIdDetalleCorporativo = corporativoDetalle['data'];
+        this.getByIdDetalleCorporativo = corporativoDetalle['data'].corporativo;
         this.tw_corporativo_id = corporativoDetalle['data'].corporativo.id
         console.log("getByIdDetalleCorporativo", this.getByIdDetalleCorporativo)
         this.getListContactos = corporativoDetalle['data'].corporativo.tw_contactos_corporativo
         console.log("getListContactos", this.getListContactos)
+        this.capturaraDatos();
       });
   }
   crearContacto: Contacto = {
@@ -116,7 +141,8 @@ export class DetallesComponent implements OnInit {
   };
   editarDatosGeneral() {
 
-    console.log("corporativoEdit", this.corporativoEdit)
+    console.log("corporativoEdit", this.formReactive.value)
+    this.cambioButon = false;
   }
   public ColumnMode = ColumnMode;
 

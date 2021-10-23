@@ -7,7 +7,7 @@ import { CorporativoRoutingModule } from './corporativo-routing..module';
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { DetallesComponent } from './detalles/detalles.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import {FormsModule} from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +15,7 @@ import {FormsModule} from '@angular/forms'
     NgxDatatableModule,
     NgbModule,
     FormsModule,
-
+    ReactiveFormsModule
   ],
   exports: [],
   declarations: [

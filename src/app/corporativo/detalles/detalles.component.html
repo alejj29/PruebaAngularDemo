@@ -16,17 +16,17 @@
                   <div class="mt-2" id="account">
                     <!-- Media object starts -->
                     <div class="media">
-                      <img src="{{getByIdDetalleCorporativo?.corporativo.S_LogoURL}}" alt="user edit avatar"
+                      <img src="{{getByIdDetalleCorporativo?.S_LogoURL}}" alt="user edit avatar"
                         class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
                       <div class="media-body">
-                        <h4>{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}</h4>
+                        <h4>{{getByIdDetalleCorporativo?.S_NombreCorto}}</h4>
                       </div>
                     </div>
                     <!-- Media object ends -->
                     <!-- Account form starts -->
 
-                    <form novalidate (ngSubmit)="editarDatosGeneral()">
-                      <div *ngIf="!mostrar">
+                    <form novalidate [formGroup]="formReactive">
+                      <!-- <div *ngIf="!mostrar">
                         <div class="row">
                           <div class="col-12 col-md-3">
                             <div class="form-group">
@@ -91,90 +91,87 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div *ngIf="mostrar">
-                        <div class="row">
-                          <div class="col-12 col-md-3">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label for="users-edit-username">NOMBRE CORTO</label>
-                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                  [disabled]="!nomDisable" name="nombreCorto" [(ngModel)]="nombre"
-                                  value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-6">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label for="users-edit-username">NOMBRE COMPLETO</label>
-                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                  [disabled]="!nomDisable"
-                                  value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCompleto}}">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-3">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label for="users-edit-status">Status</label>
-                                <select id="users-edit-status" class="form-control" [disabled]="!nomDisable">
-                                  <option value=""></option>
-                                  <option value="1">Inactivo</option>
-                                  <option value="2">Activo</option>
-                                </select>
-                              </div>
+                      </div> -->
+
+                      <div class="row">
+                        <div class="col-12 col-md-3">
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-username">NOMBRE CORTO</label>
+                              <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                [disabled]="!nomDisable" formControlName="S_NombreCorto">
                             </div>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-12 col-md-3">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label for="users-edit-username">FECHA INCORPORACÍON</label>
-                                <div class="input-group">
-                                  <input class="form-control" name="dp" [disabled]="!nomDisable"
-                                    value="{{getByIdDetalleCorporativo?.corporativo.D_FechaIncorporacion| date: 'yyyy-MM-dd'}}"
-                                    ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled"
-                                    #d3="ngbDatepicker">
-                                  <div class="input-group-append">
-                                    <div class="input-group-text" (click)="d3.toggle()">
-                                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                                    </div>
+                        <div class="col-12 col-md-6">
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-username">NOMBRE COMPLETO</label>
+                              <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                [disabled]="!nomDisable" formControlName="S_NombreCompleto">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-status">Status</label>
+                              <select id="users-edit-status" class="form-control" formControlName="S_Activo"  [disabled]="!nomDisable">
+                                <option value=""></option>
+                                <option value="0">Inactivo</option>
+                                <option value="1">Activo</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col-md-3">
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-username">FECHA INCORPORACÍON</label>
+                              <div class="input-group">
+                                <!-- value="{{getByIdDetalleCorporativo?.D_FechaIncorporacion| date: 'yyyy-MM-dd'}}" -->
+                                <input class="form-control" name="dp" [disabled]="!nomDisable"
+                                  formControlName="D_FechaIncorporacion" ngbDatepicker [dayTemplate]="customDay"
+                                  [markDisabled]="isDisabled" #d3="ngbDatepicker">
+                                <div class="input-group-append">
+                                  <div class="input-group-text" (click)="d3.toggle()">
+                                    <i class="fa fa-calendar" style="cursor: pointer;"></i>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="col-12 col-md-3">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label for="users-edit-username">URL DEL SISTEMA *</label>
-                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                  [disabled]="!nomDisable"
-                                  value="{{getByIdDetalleCorporativo?.corporativo.S_SystemUrl}}">
-                              </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-username">URL DEL SISTEMA *</label>
+                              <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
+                                [disabled]="!nomDisable" formControlName="S_SystemUrl">
                             </div>
                           </div>
                         </div>
                       </div>
 
 
+
                       <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
 
-                        <button *ngIf="!cambioButon" type="reset" class="btn btn-secondary "
+                        <button *ngIf="!cambioButon" type="button" class="btn btn-secondary "
                           [routerLink]="['/corporativos']">Regresar</button>
                         &nbsp; &nbsp;
-                        <button *ngIf="!cambioButon" type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2"
+                        <button *ngIf="!cambioButon" type="button" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2"
                           (click)="editar()">Editar</button>
 
-                        <button *ngIf="cambioButon" type="submit" class="btn btn-secondary " (click)="cancelar()"
+                        <button *ngIf="cambioButon" type="button" class="btn btn-secondary " (click)="cancelar()"
                           title="Adjuntar nuevo documento">
                           <span>Cancelar</span>
                         </button>
                         &nbsp; &nbsp;
-                        <button *ngIf="cambioButon" class="btn btn-primary" type="submit"
-                          (click)="sale()">
+                        <button *ngIf="cambioButon" class="btn btn-primary" type="button"
+                          (click)="editarDatosGeneral()">
                           Guardar Cambios
                         </button>
                       </div>
@@ -195,10 +192,10 @@
 
                     <!-- Media object starts -->
                     <div class="media">
-                      <img src="{{getByIdDetalleCorporativo?.corporativo.S_LogoURL}}" alt="user edit avatar"
+                      <img src="{{getByIdDetalleCorporativo?.S_LogoURL}}" alt="user edit avatar"
                         class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
                       <div class="media-body">
-                        <h4>{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}</h4>
+                        <h4>{{getByIdDetalleCorporativo?.S_NombreCorto}}</h4>
                       </div>
                     </div>
 
@@ -224,7 +221,8 @@
                                 <div class="te">
                                   <i class="ft-edit text-primary cursor-pointer " (click)="butoneditContact(row)"></i>
                                   <!-- &nbsp; -->
-                                  <a class="ft-trash-2 text-primary cursor-pointer " (click)="deleteContact(row.id)"></a>
+                                  <a class="ft-trash-2 text-primary cursor-pointer "
+                                    (click)="deleteContact(row.id)"></a>
                                 </div>
                               </ng-template>
                             </ngx-datatable-column>
@@ -234,7 +232,7 @@
                       </div>
                     </div>
                     <!-- Media object ends -->
-                    <form novalidate (ngSubmit)="agregarContacto()">
+                    <form novalidate  >
                       <div class="row">
                         <div class="col-12 col-md-3">
                           <div class="form-group">
@@ -304,11 +302,11 @@
                               <label for="users-edit-username"></label>
                               <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
 
-                                <button *ngIf="!editContactButon" type="submit" class="btn btn-secondary "
+                                <button *ngIf="!editContactButon" type="button" class="btn btn-secondary " (click)="agregarContacto()"
                                   title="Adjuntar nuevo documento">
                                   <span>AGREGAR CONTACTO</span>
                                 </button>
-                                <button *ngIf="editContactButon" class="btn btn-primary" (click)="editContact()" >
+                                <button *ngIf="editContactButon" class="btn btn-primary" (click)="editContact()">
                                   ACTUALIZAR CONTACTO
                                 </button>
 
