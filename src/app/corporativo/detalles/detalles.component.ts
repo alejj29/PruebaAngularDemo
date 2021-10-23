@@ -18,19 +18,26 @@ export class DetallesComponent implements OnInit {
 
   formReactive: FormGroup;
   formReactiveContacto: FormGroup;
+
+
   constructor(private _route: ActivatedRoute, private _corporativosServices: CorporativosService,
-    private _contactoService: ContactoService, private _formBuilder: FormBuilder
+    private _contactoService: ContactoService, private _formBuilder: FormBuilder,
+    private _formBuilderContacto: FormBuilder
   ) {
+    this.buidFormCorporativo();
+    this.buidFormContact();
+
+  }
+
+  private buidFormCorporativo() {
     this.formReactive = this._formBuilder.group({
       S_NombreCorto: [''],
       S_NombreCompleto: [''],
       S_SystemUrl: [''],
       D_FechaIncorporacion: [''],
-      S_Activo: [''],
+      S_Activo: ['']
     });
-
   }
-
   id;
   ngOnInit() {
     let id = +this._route.snapshot.paramMap.get('idDetalle');
@@ -38,13 +45,19 @@ export class DetallesComponent implements OnInit {
     console.log("id", this.id);
     this.getByIdCorporativo()
   }
-  capturaraDatos(){
+  capturaraDatos() {
     this.formReactive.patchValue({
       S_NombreCorto: this.getByIdDetalleCorporativo.S_NombreCorto,
       S_NombreCompleto: this.getByIdDetalleCorporativo.S_NombreCompleto,
       S_SystemUrl: this.getByIdDetalleCorporativo.S_SystemUrl,
       D_FechaIncorporacion: this.getByIdDetalleCorporativo.D_FechaIncorporacion,
       S_Activo: this.getByIdDetalleCorporativo.S_Activo,
+    })
+  }
+  capturaraDatosContact() {
+    this.formReactive.patchValue({
+      tw_corporativo_id: this.tw_corporativo_id
+
     })
   }
 
@@ -61,36 +74,33 @@ export class DetallesComponent implements OnInit {
         this.getListContactos = corporativoDetalle['data'].corporativo.tw_contactos_corporativo
         console.log("getListContactos", this.getListContactos)
         this.capturaraDatos();
+        this.capturaraDatosContact();
       });
   }
-  crearContacto: Contacto = {
-    S_Nombre: null,
-    S_Puesto: null,
-    S_Comentarios: null,
-    N_TelefonoFijo: null,
-    N_TelefonoMovil: null,
-    S_Email: null,
-    tw_corporativo_id: null,
-  };
+  private buidFormContact() {
+    const id = this.tw_corporativo_id;
+    console.log("idddddddddddd", id)
+    this.formReactiveContacto = this._formBuilderContacto.group({
+      S_Nombre: [''],
+      S_Puesto: [''],
+      S_Comentarios: [''],
+      N_TelefonoFijo: [''],
+      N_TelefonoMovil: [''],
+      S_Email: [''],
+      tw_corporativo_id: [''],
+    });
+  }
+
 
   agregarContacto() {
-    this.crearContacto.tw_corporativo_id = this.tw_corporativo_id
-    console.log("nombre", this.crearContacto)
-    this._contactoService.createContact(this.crearContacto)
+    this.formReactiveContacto.value.tw_corporativo_id = this.tw_corporativo_id
+    console.log("formReactiveContacto", this.formReactiveContacto.value)
+    this._contactoService.createContact(this.formReactiveContacto.value)
       .subscribe(contacto => {
         console.log("contacto creado por ale", contacto);
         this.getByIdCorporativo();
-        this.limpiarCampos();
+        this.buidFormContact();
       })
-  }
-
-  limpiarCampos() {
-    this.crearContacto.S_Nombre = null;
-    this.crearContacto.S_Puesto = null;
-    this.crearContacto.S_Comentarios = null;
-    this.crearContacto.N_TelefonoFijo = null;
-    this.crearContacto.N_TelefonoMovil = null;
-    this.crearContacto.S_Email = null;
   }
 
   deleteContact(idContacto: number) {

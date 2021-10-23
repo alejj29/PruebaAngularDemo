@@ -116,7 +116,8 @@
                           <div class="form-group">
                             <div class="controls">
                               <label for="users-edit-status">Status</label>
-                              <select id="users-edit-status" class="form-control" formControlName="S_Activo"  [disabled]="!nomDisable">
+                              <select id="users-edit-status" class="form-control" formControlName="S_Activo"
+                                [disabled]="!nomDisable">
                                 <option value=""></option>
                                 <option value="0">Inactivo</option>
                                 <option value="1">Activo</option>
@@ -232,15 +233,14 @@
                       </div>
                     </div>
                     <!-- Media object ends -->
-                    <form novalidate  >
+                    <form novalidate [formGroup]="formReactiveContacto">
                       <div class="row">
                         <div class="col-12 col-md-3">
                           <div class="form-group">
                             <div class="controls">
                               <label for="users-edit-username">NOMBRE</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="NOMBRE"
-                                name="nombre" [(ngModel)]="crearContacto.S_Nombre" aria-invalid="false"
-                                value="{{contactoEdit?.S_Nombre}}">
+                                formControlName="S_Nombre" aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -249,8 +249,7 @@
                             <div class="controls">
                               <label for="users-edit-username">PUESTO</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="PUESTO"
-                                value="{{contactoEdit?.S_Puesto}}" name="puesto" [(ngModel)]="crearContacto.S_Puesto"
-                                aria-invalid="false">
+                                formControlName="S_Puesto" aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -259,8 +258,7 @@
                             <div class="controls">
                               <label for="users-edit-status">COMENTARIOS</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="COMENTARIOS"
-                                value="{{contactoEdit?.S_Comentarios}}" name="comentarios"
-                                [(ngModel)]="crearContacto.S_Comentarios" aria-invalid="false">
+                                formControlName="S_Comentarios" aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -271,8 +269,7 @@
                             <div class="controls">
                               <label for="users-edit-username">TELEFONO FIJO</label>
                               <input type="text" id="users-edit-username" class="form-control" name="telFijo"
-                                value="{{contactoEdit?.N_TelefonoFijo}}" [(ngModel)]="crearContacto.N_TelefonoFijo"
-                                placeholder="TELEFOONO FIJO" aria-invalid="false">
+                                formControlName="N_TelefonoFijo" placeholder="TELEFOONO FIJO" aria-invalid="false">
                             </div>
                           </div>
                         </div>
@@ -280,8 +277,8 @@
                           <div class="form-group">
                             <div class="controls">
                               <label for="users-edit-username">TELEFONO MOVIL</label>
-                              <input type="text" id="users-edit-username" class="form-control" name="telMovil"
-                                value="{{contactoEdit?.N_TelefonoMovil}}" [(ngModel)]="crearContacto.N_TelefonoMovil"
+                              <input type="text" id="users-edit-username" class="form-control"
+                              formControlName="N_TelefonoMovil"
                                 placeholder="TELEFOONO MOVIL" aria-invalid="false">
                             </div>
                           </div>
@@ -291,7 +288,8 @@
                             <div class="controls">
                               <label for="users-edit-username">EMAIL</label>
                               <input type="text" id="users-edit-username" class="form-control" placeholder="EMAIL"
-                                value="{{contactoEdit?.S_Email}}" name="email" [(ngModel)]="crearContacto.S_Email"
+                              formControlName="S_Email"
+
                                 aria-invalid="false">
                             </div>
                           </div>
@@ -302,8 +300,8 @@
                               <label for="users-edit-username"></label>
                               <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
 
-                                <button *ngIf="!editContactButon" type="button" class="btn btn-secondary " (click)="agregarContacto()"
-                                  title="Adjuntar nuevo documento">
+                                <button *ngIf="!editContactButon" type="button" class="btn btn-secondary "
+                                  (click)="agregarContacto()" title="Adjuntar nuevo documento">
                                   <span>AGREGAR CONTACTO</span>
                                 </button>
                                 <button *ngIf="editContactButon" class="btn btn-primary" (click)="editContact()">
