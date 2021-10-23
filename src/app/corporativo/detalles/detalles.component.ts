@@ -54,12 +54,7 @@ export class DetallesComponent implements OnInit {
       S_Activo: this.getByIdDetalleCorporativo.S_Activo,
     })
   }
-  capturaraDatosContact() {
-    this.formReactive.patchValue({
-      tw_corporativo_id: this.tw_corporativo_id
 
-    })
-  }
 
 
   tw_corporativo_id: number;
@@ -74,7 +69,6 @@ export class DetallesComponent implements OnInit {
         this.getListContactos = corporativoDetalle['data'].corporativo.tw_contactos_corporativo
         console.log("getListContactos", this.getListContactos)
         this.capturaraDatos();
-        this.capturaraDatosContact();
       });
   }
   private buidFormContact() {
@@ -115,14 +109,33 @@ export class DetallesComponent implements OnInit {
   editContactButon: boolean;
   nomDisable: boolean;
   contactoEdit: Contacto;
+  idContacto: number;
   butoneditContact(contacto: Contacto) {
     console.log("row", contacto)
+    this.idContacto = contacto.id;
+    console.log("idContacto", this.idContacto)
+    this.formReactiveContacto.patchValue({
+      S_Nombre: contacto.S_Nombre,
+      S_Puesto: contacto.S_Puesto,
+      S_Comentarios: contacto.S_Comentarios,
+      N_TelefonoFijo: contacto.N_TelefonoFijo,
+      N_TelefonoMovil: contacto.N_TelefonoMovil,
+      S_Email: contacto.S_Email,
+      tw_corporativo_id: contacto.tw_corporativo_id,
+    })
     this.contactoEdit = contacto
     this.editContactButon = true;
-
   }
   editContact() {
-    this.editContactButon = false;
+    console.log("idContacto editContact", this.idContacto)
+    console.log("formReactiveContacto", this.formReactiveContacto.value)
+    this._contactoService.updateContact(this.idContacto,this.formReactiveContacto.value)
+      .subscribe(contacto => {
+        console.log("contacto", contacto)
+        this.getByIdCorporativo();
+        this.buidFormContact();
+        this.editContactButon = false;
+      })
   }
   cambioButon: boolean;
   mostrar;
@@ -130,7 +143,6 @@ export class DetallesComponent implements OnInit {
     this.cambioButon = true;
     this.nomDisable = true;
     this.mostrar = true
-
   }
   cancelar() {
     this.getByIdCorporativo();
@@ -140,19 +152,14 @@ export class DetallesComponent implements OnInit {
 
   }
 
-  corporativoEdit: CorporativoEdit = {
-    id: null,
-    S_NombreCorto: null,
-    S_NombreCompleto: null,
-    S_LogoURL: null,
-    S_Activo: null,
-    FK_Asignado_id: null,
-    D_FechaIncorporacion: null,
-  };
   editarDatosGeneral() {
 
     console.log("corporativoEdit", this.formReactive.value)
     this.cambioButon = false;
+    // this._corporativosServices.updateCorporativo(93)
+    // .subscribe(corpor => {
+
+    // })
   }
   public ColumnMode = ColumnMode;
 

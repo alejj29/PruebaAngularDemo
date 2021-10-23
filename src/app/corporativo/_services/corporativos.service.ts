@@ -38,6 +38,14 @@ export class CorporativosService {
     }
     return this.http.get<CorporativoDetalle>(this.apiCorporativosURL + '/corporativos/' + id, headers);
   }
-
+  updateCorporativo(idCorporativo: number): Observable<any> {
+    const headers = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.auth_toke}`
+      })
+    }
+    return this.http.put<any>(this.apiCorporativosURL + '/corporativos/' + idCorporativo, headers);
+  }
 
 }

@@ -27,14 +27,14 @@ export class ContactoService {
     }
     return this.http.post<Contacto>(this.apiCorporativosURL + '/contactos', contacto, headers);
   }
-  updateContact(idContacto: number): Observable<Contacto> {
+  updateContact(idContacto: number,contacto: Contacto): Observable<Contacto> {
     const headers = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.auth_toke}`
       })
     }
-    return this.http.put<Contacto>(this.apiCorporativosURL + '/contactos/' + idContacto, headers);
+    return this.http.put<Contacto>(this.apiCorporativosURL + '/contactos/' + idContacto,contacto, headers);
   }
   deleteContact(idContacto: number): Observable<Contacto> {
     const headers = {
