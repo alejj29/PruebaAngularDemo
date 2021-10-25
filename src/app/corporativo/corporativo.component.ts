@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { usersListData } from './users-list.data';
+
 import { DatatableComponent, ColumnMode } from "@swimlane/ngx-datatable";
 import { CorporativosService } from './_services/corporativos.service';
 import { Corporativo } from './_models/corporativo';
@@ -18,7 +18,7 @@ export class CorporativoComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
   // row data
   public ColumnMode = ColumnMode;
-  public row = usersListData;
+
 
   public limitRef = 10;
   // private
