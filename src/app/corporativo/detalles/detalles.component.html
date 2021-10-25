@@ -22,76 +22,8 @@
                         <h4>{{getByIdDetalleCorporativo?.S_NombreCorto}}</h4>
                       </div>
                     </div>
-                    <!-- Media object ends -->
-                    <!-- Account form starts -->
 
                     <form novalidate [formGroup]="formReactive">
-                      <!-- <div *ngIf="!mostrar">
-                        <div class="row">
-                          <div class="col-12 col-md-3">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label for="users-edit-username">NOMBRE CORTO</label>
-                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                  [disabled]="!nomDisable" name="nombreCorto"
-                                  value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCorto}}">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-6">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label for="users-edit-username">NOMBRE COMPLETO</label>
-                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                  [disabled]="!nomDisable"
-                                  value="{{getByIdDetalleCorporativo?.corporativo.S_NombreCompleto}}">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-3">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label for="users-edit-status">STATUS*</label>
-                                <select id="users-edit-status" class="form-control" [disabled]="!nomDisable">
-                                  <option value=""></option>
-                                  <option value="1">Inactivo</option>
-                                  <option value="2">Activo</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12 col-md-3">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label for="users-edit-username">FECHA INCORPORACÍON*</label>
-                                <div class="input-group">
-                                  <input class="form-control" name="dp" [disabled]="!nomDisable"
-                                    value="{{getByIdDetalleCorporativo?.corporativo.D_FechaIncorporacion| date: 'yyyy-MM-dd'}}"
-                                    ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled"
-                                    #d3="ngbDatepicker">
-                                  <div class="input-group-append">
-                                    <div class="input-group-text" (click)="d3.toggle()">
-                                      <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-3">
-                            <div class="form-group">
-                              <div class="controls">
-                                <label for="users-edit-username">URL DEL SISTEMA *</label>
-                                <input type="text" id="users-edit-username" class="form-control" aria-invalid="false"
-                                  [disabled]="!nomDisable"
-                                  value="{{getByIdDetalleCorporativo?.corporativo.S_SystemUrl}}">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div> -->
 
                       <div class="row">
                         <div class="col-12 col-md-3">
@@ -129,17 +61,7 @@
                       <div class="row">
                         <div class="col-12 col-md-3">
                           <div class="form-group">
-                            <!-- <label for="users-edit-username">FECHA INCORPORACÍON</label> -->
                             <div class="input-group">
-                              <!-- <input class="form-control" name="dp"  [readonly]="nomDisable"
-                              placeholder="yyyy-mm-dd" type="text"
-                                formControlName="D_FechaIncorporacion" ngbDatepicker [dayTemplate]="customDay"
-                                #d3="ngbDatepicker">
-                              <div class="input-group-append">
-                                <div class="input-group-text" (click)="d3.toggle()">
-                                  <i class="fa fa-calendar" style="cursor: pointer;"></i>
-                                </div>
-                              </div> -->
                               <div class="controls">
                                 <label for="corporativo-edit-fecha"
                                   >FECHA DE INCORPORACION *</label

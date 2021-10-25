@@ -45,7 +45,6 @@ export class DetallesComponent implements OnInit {
   ngOnInit() {
     let id = +this._route.snapshot.paramMap.get('idDetalle');
     this.id = id
-    console.log("id", this.id);
     this.getByIdCorporativo()
   }
   capturaraDatos() {
@@ -54,11 +53,7 @@ export class DetallesComponent implements OnInit {
       S_NombreCorto: this.getByIdDetalleCorporativo.S_NombreCorto,
       S_NombreCompleto: this.getByIdDetalleCorporativo.S_NombreCompleto,
       S_SystemUrl: this.getByIdDetalleCorporativo.S_SystemUrl,
-      // D_FechaIncorporacion: this.getByIdDetalleCorporativo.D_FechaIncorporacion,
       D_FechaIncorporacion: new Date(this.getByIdDetalleCorporativo.D_FechaIncorporacion).toISOString().slice(0, -1),
-      // D_FechaIncorporacion: new Date(this.getByIdDetalleCorporativo.D_FechaIncorporacion).toLocaleDateString().slice(0, -1),
-
-
       S_Activo: this.getByIdDetalleCorporativo.S_Activo,
       FK_Asignado_id: this.FK_Asignado_id
     })
@@ -75,16 +70,13 @@ export class DetallesComponent implements OnInit {
       .subscribe((corporativoDetalle: CorporativoDetalle) => {
         this.getByIdDetalleCorporativo = corporativoDetalle['data'].corporativo;
         this.tw_corporativo_id = corporativoDetalle['data'].corporativo.id
-        console.log("getByIdDetalleCorporativo", this.getByIdDetalleCorporativo)
         this.getListContactos = corporativoDetalle['data'].corporativo.tw_contactos_corporativo
-        console.log("getListContactos", this.getListContactos)
         this.FK_Asignado_id = corporativoDetalle['data'].corporativo.FK_Asignado_id
         this.capturaraDatos();
       });
   }
   private buidFormContact() {
     const id = this.tw_corporativo_id;
-    console.log("idddddddddddd", id)
     this.formReactiveContacto = this._formBuilderContacto.group({
       S_Nombre: [''],
       S_Puesto: [''],
@@ -99,20 +91,16 @@ export class DetallesComponent implements OnInit {
 
   agregarContacto() {
     this.formReactiveContacto.value.tw_corporativo_id = this.tw_corporativo_id
-    console.log("formReactiveContacto", this.formReactiveContacto.value)
     this._contactoService.createContact(this.formReactiveContacto.value)
       .subscribe(contacto => {
-        console.log("contacto creado por ale", contacto);
         this.getByIdCorporativo();
         this.buidFormContact();
       })
   }
 
   deleteContact(idContacto: number) {
-    console.log("idContacto", idContacto)
     this._contactoService.deleteContact(idContacto)
       .subscribe(contacto => {
-        console.log("elimnado correctamente", contacto);
         this.getByIdCorporativo();
       })
   }
@@ -122,9 +110,7 @@ export class DetallesComponent implements OnInit {
   contactoEdit: Contacto;
   idContacto: number;
   butoneditContact(contacto: Contacto) {
-    console.log("row", contacto)
     this.idContacto = contacto.id;
-    console.log("idContacto", this.idContacto)
     this.formReactiveContacto.patchValue({
       S_Nombre: contacto.S_Nombre,
       S_Puesto: contacto.S_Puesto,
@@ -138,11 +124,8 @@ export class DetallesComponent implements OnInit {
     this.editContactButon = true;
   }
   editContact() {
-    console.log("idContacto editContact", this.idContacto)
-    console.log("formReactiveContacto", this.formReactiveContacto.value)
     this._contactoService.updateContact(this.idContacto, this.formReactiveContacto.value)
       .subscribe(contacto => {
-        console.log("contacto", contacto)
         this.getByIdCorporativo();
         this.buidFormContact();
         this.editContactButon = false;
@@ -163,13 +146,9 @@ export class DetallesComponent implements OnInit {
   }
 
   editarDatosGeneral() {
-    console.log("FK_Asignado_id", this.FK_Asignado_id)
-    console.log("corporativoEdit", this.formReactive.value)
-    console.log("corporativo", this.id)
+
     this._corporativosServices.updateCorporativo(this.id, this.formReactive.value)
       .subscribe(corpor => {
-        console.log("corporativo editar", corpor)
-
       })
     this.cambioButon = false;
     this.nomDisable = true;

@@ -37,7 +37,6 @@ export class CorporativoComponent implements OnInit {
   getListCorporativos() {
     this._corporativosServices.getCorporativos()
       .subscribe((corporativo: Corporativo[]) => {
-        console.log("corporativo['data'].length", corporativo['data'].length)
         if (corporativo['data'].length) {
           this.listCorporativo = corporativo['data'];
         }
@@ -47,11 +46,6 @@ export class CorporativoComponent implements OnInit {
   getByIdCorporativo(id:number) {
     this._corporativosServices.getByIdCorporativo(id)
       .subscribe((corporativoDetalle: CorporativoDetalle) => {
-        console.log("corporativo",corporativoDetalle['data'])
-        // if (corporativo['data'].length) {
-        //   this.listCorporativo = corporativo['data'];
-        // }
-        // console.log(this.listCorporativo)
       });
   }
   /**
