@@ -34,7 +34,7 @@ export class DetallesComponent implements OnInit {
     this.formReactive = this._formBuilder.group({
       S_NombreCorto: [''],
       S_NombreCompleto: [''],
-      S_SystemUrl: [''],
+      S_LogoURL: [''],
       D_FechaIncorporacion: [this.currentDate],
       S_Activo: [''],
       FK_Asignado_id: [''],
@@ -52,7 +52,7 @@ export class DetallesComponent implements OnInit {
     this.formReactive.patchValue({
       S_NombreCorto: this.getByIdDetalleCorporativo.S_NombreCorto,
       S_NombreCompleto: this.getByIdDetalleCorporativo.S_NombreCompleto,
-      S_SystemUrl: this.getByIdDetalleCorporativo.S_SystemUrl,
+      S_LogoURL: this.getByIdDetalleCorporativo.S_LogoURL,
       D_FechaIncorporacion: new Date(this.getByIdDetalleCorporativo.D_FechaIncorporacion).toISOString().slice(0, -1),
       S_Activo: this.getByIdDetalleCorporativo.S_Activo,
       FK_Asignado_id: this.FK_Asignado_id
@@ -149,6 +149,7 @@ export class DetallesComponent implements OnInit {
 
     this._corporativosServices.updateCorporativo(this.id, this.formReactive.value)
       .subscribe(corpor => {
+        this.getByIdCorporativo()
       })
     this.cambioButon = false;
     this.nomDisable = true;
